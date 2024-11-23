@@ -41,8 +41,8 @@
             color: black;
             border: none;
             border-radius: 5px;
-            padding: 10px 15px;  /* Adjusted padding */
-            font-size: 1.2rem;    /* Adjusted font size */
+            padding: 10px 15px;
+            font-size: 1.2rem;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             transition: transform 0.2s;
@@ -53,27 +53,46 @@
         }
 
         .youtube-button {
-            margin-top: 10px; /* Smaller margin */
+            margin-top: 10px;
             background: rgba(255, 0, 0, 0.8);
             color: white;
             border: none;
             border-radius: 5px;
-            padding: 8px 12px; /* Adjusted padding */
-            font-size: 1rem;   /* Adjusted font size */
+            padding: 8px 12px;
+            font-size: 1rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             transition: transform 0.2s;
-            text-decoration: none; /* Ensure link behaves like a button */
+            text-decoration: none;
         }
 
         .youtube-button img {
-            width: 20px; /* Smaller icon */
-            margin-right: 5px; /* Adjusted spacing */
+            width: 20px;
+            margin-right: 5px;
         }
 
         .youtube-button:hover {
+            transform: scale(1.05);
+        }
+
+        .bottom-left-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s;
+        }
+
+        .bottom-left-button:hover {
             transform: scale(1.05);
         }
     </style>
@@ -87,5 +106,25 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube Logo">
         YouTube
     </a>
+    <button class="bottom-left-button" onclick="promptPassword()">Secret Options</button>
+
+    <script>
+        // Encrypted password (simple encoding example)
+        const encryptedPassword = btoa("0405"); // "0405" encoded as Base64
+
+        function promptPassword() {
+            const password = prompt("Enter the password:");
+            if (btoa(password) === encryptedPassword) {
+                showOptions();
+            } else {
+                alert("Incorrect password. Try again.");
+            }
+        }
+
+        function showOptions() {
+            alert("Correct password! Now, show your options here.");
+            // Replace with code to display options dynamically.
+        }
+    </script>
 </body>
 </html>
