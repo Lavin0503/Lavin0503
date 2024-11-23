@@ -3,153 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enter Root</title>
+    <title>Cooldown Bypass</title>
     <style>
         body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: url('https://www.pixelstalk.net/wp-content/uploads/2016/08/Super-cool-picture-backgrounds.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: white;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
         }
-
-        h1 {
-            font-size: 5rem;
-            perspective: 1000px;
-            animation: rotate 5s infinite linear;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.7), 0 0 30px rgba(0, 0, 255, 0.5);
-        }
-
-        @keyframes rotate {
-            0% {
-                transform: rotateY(0deg);
-            }
-            100% {
-                transform: rotateY(360deg);
-            }
-        }
-
-        .lav1n-button {
-            margin-top: 20px;
-            background: rgba(255, 215, 0, 0.8);
-            color: black;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 15px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            transition: transform 0.2s;
-        }
-
-        .lav1n-button:hover {
-            transform: scale(1.05);
-        }
-
-        .bottom-left-button {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 15px;
+        input, button {
+            margin: 10px;
+            padding: 10px;
             font-size: 1rem;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            transition: transform 0.2s;
         }
-
-        .bottom-left-button:hover {
-            transform: scale(1.05);
+        .backup-codes {
+            margin: 20px;
+            font-family: monospace;
+            color: #007BFF;
         }
-
-        .options-container {
-            display: none;
+        #message {
             margin-top: 20px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 10px;
-        }
-
-        .options-container a {
-            display: block;
-            color: white;
-            margin: 10px 0;
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: color 0.3s;
-        }
-
-        .options-container a:hover {
-            color: yellow;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <h1>Type in Root</h1>
-    <button class="lav1n-button" onclick="window.location.href='https://www.youtube.com/@Lav1nRules'">
-        Lav1nRulez!!!
-    </button>
-    <button class="bottom-left-button" onclick="promptPassword()">Secret Options</button>
-    
-        <div id="options" class="options-container">
-    <a href="https://lavin0503.github.io/Lavin0503/Guilded%20Server/FounderLogo.png" target="_blank">Founder Logo</a>
-    <a href="https://lavin0503.github.io/Lavin0503/Guilded%20Server/AdminLogo.png" target="_blank">Admin Logo</a>
-    <a href="https://lavin0503.github.io/Lavin0503/Guilded%20Server/NewieDisLogo.png" target="_blank">Newbie Logo</a>
-    <a href="https://lavin0503.github.io/Lavin0503/Guilded%20Server/PthFindLogo.png" target="_blank">Pathfinder Logo</a>
-    <a href="https://lavin0503.github.io/Lavin0503/Guilded%20Server/SageLogo.png" target="_blank">Sage Logo</a>
-    <a href="https://lavin0503.github.io/Lavin0503/Guilded%20Server/Verified%20Logo.gif" target="_blank">Verified Logo</a>
-    <a href="https://lavin0503.github.io/Lavin0503/Guilded%20Server/member_white.png" target="_blank">Member White</a>
-    <a href="https://lavin0503.github.io/Lavin0503/Guilded%20Server/moderator_red.png" target="_blank">Moderator Red</a>
-</div>
+    <h1>Cooldown Bypass</h1>
+    <p>Enter one of your backup codes to cancel the cooldown:</p>
+    <input type="text" id="backup-code" placeholder="Enter backup code" required>
+    <button onclick="validateBackupCode()">Submit</button>
+
+    <div id="message"></div>
+
     <script>
-        const encryptedPassword = btoa("0405"); // Encrypted password
-        let attempts = 0; // Counter for incorrect attempts
-        const maxAttempts = 5; // Maximum allowed attempts
-        const cooldownTime = 3600000; // Cooldown time in milliseconds (1 hour)
+        // Predefined backup codes
+        const backupCodes = [
+            "X9AB-12CD",
+            "JK34-LM56",
+            "QR78-TUV9",
+            "WX01-YZ23",
+            "45GH-67IJ",
+            "89KL-MN01",
+            "OP23-QT45",
+            "UV67-WX89",
+            "YZ01-AB23",
+            "CD45-EF67"
+        ];
 
-        // Retrieve cooldownEnd from localStorage
-        let cooldownEnd = localStorage.getItem("cooldownEnd");
+        // Store the backup codes in localStorage if not already stored
+        if (!localStorage.getItem("backupCodes")) {
+            localStorage.setItem("backupCodes", JSON.stringify(backupCodes));
+        }
 
-        function promptPassword() {
-            const now = new Date().getTime();
+        function validateBackupCode() {
+            const codeInput = document.getElementById("backup-code").value.trim().toUpperCase();
+            const messageDiv = document.getElementById("message");
+            let storedCodes = JSON.parse(localStorage.getItem("backupCodes"));
 
-            if (cooldownEnd && now < cooldownEnd) {
-                const remainingTime = Math.ceil((cooldownEnd - now) / 60000);
-                alert(`Cooldown active. Try again in ${remainingTime} minute(s).`);
-                return;
-            }
+            if (storedCodes.includes(codeInput)) {
+                // Code is valid
+                messageDiv.style.color = "green";
+                messageDiv.innerText = "Backup code accepted! Cooldown has been canceled.";
 
-            const password = prompt("Enter the password:");
-            if (btoa(password) === encryptedPassword) {
-                attempts = 0; // Reset attempts on success
-                localStorage.removeItem("cooldownEnd"); // Clear cooldown
-                showOptions();
+                // Remove the used code from localStorage
+                storedCodes = storedCodes.filter(code => code !== codeInput);
+                localStorage.setItem("backupCodes", JSON.stringify(storedCodes));
+
+                // Reset the cooldown (simulated here by removing cooldownEnd from localStorage)
+                localStorage.removeItem("cooldownEnd");
             } else {
-                attempts++;
-                if (attempts >= maxAttempts) {
-                    cooldownEnd = now + cooldownTime;
-                    localStorage.setItem("cooldownEnd", cooldownEnd); // Save cooldownEnd to localStorage
-                    alert("Too many attempts! Please try again in 1 hour.");
-                } else {
-                    alert(`Incorrect password. You have ${maxAttempts - attempts} attempt(s) left.`);
-                }
+                // Code is invalid
+                messageDiv.style.color = "red";
+                messageDiv.innerText = "Invalid backup code. Please try again.";
             }
         }
 
-        function showOptions() {
-            const optionsContainer = document.getElementById("options");
-            optionsContainer.style.display = "block";
+        // Simulated cooldown system for demonstration
+        if (!localStorage.getItem("cooldownEnd")) {
+            // Set a cooldown end time 1 hour from now (for testing purposes)
+            const cooldownEnd = Date.now() + 60 * 60 * 1000;
+            localStorage.setItem("cooldownEnd", cooldownEnd);
         }
+
+        // Countdown timer (displaying time left for cooldown)
+        function updateCooldownTimer() {
+            const cooldownEnd = parseInt(localStorage.getItem("cooldownEnd"), 10);
+            const timeLeft = cooldownEnd - Date.now();
+
+            if (timeLeft > 0) {
+                const minutes = Math.floor(timeLeft / 60000);
+                const seconds = Math.floor((timeLeft % 60000) / 1000);
+                document.getElementById("message").style.color = "blue";
+                document.getElementById("message").innerText = `Cooldown active. Time left: ${minutes}m ${seconds}s`;
+                setTimeout(updateCooldownTimer, 1000);
+            } else {
+                document.getElementById("message").innerText = "No active cooldown.";
+                localStorage.removeItem("cooldownEnd");
+            }
+        }
+
+        updateCooldownTimer(); // Start the countdown on page load
     </script>
 </body>
 </html>
-
