@@ -52,31 +52,6 @@
             transform: scale(1.05);
         }
 
-        .youtube-button {
-            margin-top: 10px;
-            background: rgba(255, 0, 0, 0.8);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 8px 12px;
-            font-size: 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            transition: transform 0.2s;
-            text-decoration: none;
-        }
-
-        .youtube-button img {
-            width: 20px;
-            margin-right: 5px;
-        }
-
-        .youtube-button:hover {
-            transform: scale(1.05);
-        }
-
         .bottom-left-button {
             position: fixed;
             bottom: 20px;
@@ -95,6 +70,27 @@
         .bottom-left-button:hover {
             transform: scale(1.05);
         }
+
+        .options-container {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+        }
+
+        .options-container a {
+            display: block;
+            color: white;
+            margin: 10px 0;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .options-container a:hover {
+            color: yellow;
+        }
     </style>
 </head>
 <body>
@@ -102,28 +98,53 @@
     <button class="lav1n-button" onclick="window.location.href='https://lavin0503.github.io/Lavin0503/OIP.jpg'">
         Lav1nRulez!!!
     </button>
-    <a class="youtube-button" href="https://www.youtube.com/@Lav1nRules" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube Logo">
-        YouTube
-    </a>
     <button class="bottom-left-button" onclick="promptPassword()">Secret Options</button>
 
+    <div id="options" class="options-container">
+        <a href="https://lavin0503.github.io/Lavin0503/Guilded%20Server/FounderLogo.png" target="_blank">Admin Logo</a>
+        <a href="https://lavin0503.github.io/Lavin0503/Guilded%20Server/AdminLogo.png" target="_blank">Admin Logo</a>
+        <a href="https://lavin0503.github.io/Lavin0503/Guilded%20Server/NewieDisLogo.png" target="_blank">Newbie Logo</a>
+        <a href="https://lavin0503.github.io/Lavin0503/Guilded%20Server/PthFindLogo.png" target="_blank">Pathfinder Logo</a>
+        <a href="https://lavin0503.github.io/Lavin0503/Guilded%20Server/SageLogo.png" target="_blank">Sage Logo</a>
+        <a href="https://lavin0503.github.io/Lavin0503/Guilded%20Server/Verified%20Logo.gif" target="_blank">Verified Logo</a>
+        <a href="https://lavin0503.github.io/Lavin0503/Guilded%20Server/member_white.png" target="_blank">Member White</a>
+        <a href="https://lavin0503.github.io/Lavin0503/Guilded%20Server/moderator_red.png" target="_blank">Moderator Red</a>
+    </div>
+
     <script>
-        // Encrypted password (simple encoding example)
-        const encryptedPassword = btoa("0405"); // "0405" encoded as Base64
+        const encryptedPassword = btoa("0405"); // Encrypted password
+        let attempts = 0; // Counter for incorrect attempts
+        const maxAttempts = 5; // Maximum allowed attempts
+        const cooldownTime = 3600000; // Cooldown time in milliseconds (1 hour)
+        let cooldownEnd = null; // Tracks cooldown end time
 
         function promptPassword() {
+            const now = new Date().getTime();
+            
+            if (cooldownEnd && now < cooldownEnd) {
+                const remainingTime = Math.ceil((cooldownEnd - now) / 60000);
+                alert(`Cooldown active. Try again in ${remainingTime} minute(s).`);
+                return;
+            }
+
             const password = prompt("Enter the password:");
             if (btoa(password) === encryptedPassword) {
+                attempts = 0; // Reset attempts on success
                 showOptions();
             } else {
-                alert("Incorrect password. Try again.");
+                attempts++;
+                if (attempts >= maxAttempts) {
+                    cooldownEnd = now + cooldownTime;
+                    alert("Too many attempts! Please try again in 1 hour.");
+                } else {
+                    alert(`Incorrect password. You have ${maxAttempts - attempts} attempt(s) left.`);
+                }
             }
         }
 
         function showOptions() {
-            alert("Correct password! Now, show your options here.");
-            // Replace with code to display options dynamically.
+            const optionsContainer = document.getElementById("options");
+            optionsContainer.style.display = "block";
         }
     </script>
 </body>
