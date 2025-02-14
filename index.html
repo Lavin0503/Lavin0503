@@ -163,7 +163,7 @@
 
             if (cooldownEnd && now < cooldownEnd) {
                 const remainingTime = Math.ceil((cooldownEnd - now) / 60000);
-                alert(Cooldown active. Try again in ${remainingTime} minute(s).);
+                alert(`Cooldown active. Try again in ${remainingTime} minute(s).`);
                 showBackupCodeOption();
                 return;
             }
@@ -181,7 +181,7 @@
                     alert("Too many attempts! Please try again in 1 hour.");
                     showBackupCodeOption();
                 } else {
-                    alert(Incorrect password. You have ${maxAttempts - attempts} attempt(s) left.);
+                    alert(`Incorrect password. You have ${maxAttempts - attempts} attempt(s) left.`);
                 }
             }
         }
