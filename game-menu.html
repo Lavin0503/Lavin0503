@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Game Menu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to right, #000428, #004e92);
+      font-family: 'Orbitron', sans-serif;
+      color: white;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px #00faff, 0 0 20px #0088ff;
+    }
+
+    .game-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    button {
+      padding: 15px 25px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 2px solid #00ffff;
+      box-shadow: 0 0 10px #00ffff;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background-color: #00ffff;
+      color: black;
+    }
+
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 1rem;
+      padding: 10px 15px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid #00ffff;
+    }
+
+    .back-button:hover {
+      background: #00ffff;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-button">⬅ Back</a>
+  <h1>Game Menu</h1>
+  <div class="game-buttons">
+    <button onclick="location.href='tic-tac-toe.html'">Tic Tac Toe</button>
+    <button onclick="location.href='rock-paper-scissors.html'">Rock Paper Scissors</button>
+    <button onclick="location.href='snake.html'">Snake</button>
+    <button disabled>The Big Game: Who’s the Thief (Coming Soon)</button>
+  </div>
+</body>
+</html>
