@@ -2,226 +2,101 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Enter Root</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
-      width: 100%;
-      height: 100%;
-      font-family: 'Orbitron', sans-serif;
-      overflow: hidden;
-      background: black;
-      color: white;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
-    }
-    .main-content {
-      z-index: 1;
-      position: relative;
+    body {
       height: 100vh;
+      background: radial-gradient(circle at top left, #111, #000);
+      font-family: 'Segoe UI', sans-serif;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      color: white;
+      overflow: hidden;
     }
     h1 {
       font-size: 4rem;
+      color: #00ffe7;
+      text-shadow: 0 0 20px #00ffe7, 0 0 40px #007a74;
       animation: rotate 6s linear infinite;
-      text-shadow: 0 0 15px #0ff, 0 0 30px #00f;
     }
     @keyframes rotate {
       0% { transform: rotateY(0deg); }
       100% { transform: rotateY(360deg); }
     }
     button {
-      margin: 15px;
-      padding: 12px 24px;
-      font-size: 1.1rem;
       border: none;
+      padding: 12px 24px;
+      margin: 10px;
+      font-size: 1.2rem;
       border-radius: 10px;
       cursor: pointer;
-      font-weight: bold;
-      transition: transform 0.3s;
+      transition: all 0.3s ease-in-out;
     }
     .lav1n-button {
       background: linear-gradient(to right, gold, orange);
       color: black;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+      font-weight: bold;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
     }
     .lav1n-button:hover {
-      transform: scale(1.08);
+      transform: scale(1.05);
     }
     .game-menu-button {
-      background: linear-gradient(270deg, #0ff, #00f, #0ff);
-      background-size: 600% 600%;
+      background: linear-gradient(270deg, #ff0080, #7928ca, #2afadf, #00ff99, #ffcc00);
+      background-size: 1000% 1000%;
       color: white;
-      animation: pulse 5s ease infinite;
+      font-weight: bold;
+      animation: rainbowFlow 8s ease infinite;
       box-shadow: 0 0 25px rgba(0,255,255,0.4);
     }
     .game-menu-button:hover {
       transform: scale(1.07);
     }
-    @keyframes pulse {
-      0%, 100% { background-position: 0% 50%; }
+    @keyframes rainbowFlow {
+      0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
-    }
-    .cutscene {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: black;
-      color: white;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 1000;
-      animation: fadein 2s;
-    }
-    @keyframes fadein {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    .cutscene h2 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      text-shadow: 0 0 10px #0ff;
-    }
-    .cutscene div {
-      font-size: 1.5rem;
-      margin: 10px 0;
-      animation: pop 2s ease-in-out infinite alternate;
-    }
-    @keyframes pop {
-      0% { transform: scale(1); opacity: 0.5; }
-      100% { transform: scale(1.1); opacity: 1; }
+      100% { background-position: 0% 50%; }
     }
 
-    .bottom-left-button {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background: rgba(0, 0, 0, 0.8);
-      color: white;
-      padding: 10px 15px;
-      border-radius: 8px;
-    }
-    .bottom-left-button:hover {
-      transform: scale(1.05);
-    }
-
-    .options-container {
+    /* Secret Options */
+    #options {
       display: none;
       position: absolute;
       top: 60%;
-      background: rgba(0, 0, 0, 0.7);
-      padding: 15px;
-      border-radius: 10px;
-      text-align: center;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(0,255,255,0.1);
     }
-    .options-container a {
+    #options a {
       color: #0ff;
+      text-decoration: none;
       display: block;
-      margin: 5px 0;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
     }
   </style>
 </head>
 <body>
-  <canvas id="bgCanvas"></canvas>
+  <h1>Type in Root</h1>
+  <button class="lav1n-button" onclick="window.location.href='https://www.youtube.com/@Lav1nRules'">Lav1nRulez!!!</button>
+  <button class="game-menu-button" onclick="window.location.href='https://lavin0503.github.io/Lavin0503/game-menu.html'">Game Menu</button>
 
-  <div class="main-content">
-    <h1>Type in Root</h1>
-    <button class="lav1n-button" onclick="window.location.href='https://www.youtube.com/@Lav1nRules'">Lav1nRulez!!!</button>
-    <button class="game-menu-button" onclick="handleGameMenuClick()">Game Menu</button>
-    <button class="bottom-left-button" onclick="showSecretOptions()">Secret Options</button>
-
-    <div class="options-container" id="options">
-      <a href="#">Founder Logo</a>
-      <a href="#">Admin Logo</a>
-      <a href="#">Newbie Logo</a>
-      <a href="#">Sage Logo</a>
-      <a href="#">Verified Logo</a>
-    </div>
-  </div>
-
-  <div class="cutscene" id="cutscene">
-    <h2>🎮 Entering GameVerse</h2>
-    <div>🟢 Snake Circuit Engaged</div>
-    <div>✊ Rock Paper Scissors Ready</div>
-    <div>🌌 Neon Grid Loading...</div>
-    <div style="margin-top: 20px;">🚀 Let’s Go!</div>
+  <div id="options">
+    <a href="https://lavin0503.github.io/Lavin0503/secret1.html">Secret Option 1</a>
+    <a href="https://lavin0503.github.io/Lavin0503/secret2.html">Secret Option 2</a>
   </div>
 
   <script>
-    // Background Stars
-    const canvas = document.getElementById('bgCanvas');
-    const ctx = canvas.getContext('2d');
-    let width, height;
-    const stars = [];
-
-    function initCanvas() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-      stars.length = 0;
-      for (let i = 0; i < 200; i++) {
-        stars.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          radius: Math.random() * 2,
-          dx: 0, dy: 0
-        });
-      }
-    }
-
-    function drawStars(e) {
-      ctx.clearRect(0, 0, width, height);
-      stars.forEach(star => {
-        const dx = (e.clientX - width / 2) * 0.001;
-        const dy = (e.clientY - height / 2) * 0.001;
-        star.x += dx;
-        star.y += dy;
-        if (star.x < 0) star.x = width;
-        if (star.x > width) star.x = 0;
-        if (star.y < 0) star.y = height;
-        if (star.y > height) star.y = 0;
-
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
-        ctx.fillStyle = '#0ff';
-        ctx.fill();
-      });
-    }
-
-    window.addEventListener('mousemove', drawStars);
-    window.addEventListener('resize', initCanvas);
-    initCanvas();
-
-    // Game Menu Cutscene
-    function handleGameMenuClick() {
-      if (!localStorage.getItem('cutscenePlayed')) {
-        const cut = document.getElementById("cutscene");
-        cut.style.display = "flex";
-        setTimeout(() => {
-          cut.style.display = "none";
-          localStorage.setItem('cutscenePlayed', 'yes');
-          window.location.href = "https://lavin0503.github.io/Lavin0503/game-menu.html";
-        }, 5500);
-      } else {
-        window.location.href = "https://lavin0503.github.io/Lavin0503/game-menu.html";
-      }
-    }
-
-    // Secret Options
-    function showSecretOptions() {
-      const opt = document.getElementById('options');
-      opt.style.display = opt.style.display === 'block' ? 'none' : 'block';
-    }
+    // You can add some secret toggle or anything here if needed
   </script>
 </body>
 </html>
