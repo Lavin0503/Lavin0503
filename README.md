@@ -1,1 +1,1 @@
-![Subscribers](https://patch-lime.vercel.app/api/badge?source=youtube&id=%40lav1nrules&label=Subscribers&color=FF0000&labelColor=1b1740&style=plastic&logo=youtube&dot=1&anim=pulse&h=28&font=Mono&fw=700&rad=100&pad=29&fsz=46&grad=1&bord=1&ltc=ffffff)
+![Subscribers](https://patch-lime.vercel.app/api/badge?source=youtube&id=%40lav1nrules&label=Subscribers&color=FF0000&labelColor=1b1740&style=solid&logo=youtube&logoColor=ff4747&dot=1&anim=pulse&h=36&font=Inter&fw=600&rad=100&pad=23&fsz=46&grad=1&bord=1)
